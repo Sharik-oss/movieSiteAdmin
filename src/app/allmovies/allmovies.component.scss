@@ -1,0 +1,46 @@
+.card{
+    border-radius: 10px;
+    border: 1px solid black;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    &--id{
+        width: 10%;
+    }
+    &--name{
+        width: 87%;
+    }
+    &--edit{
+        width: 2%;
+        img{
+            width: 20px;
+        }
+    }
+}
+
+
+.movie-wrapper{
+
+    width: 100%;
+    
+}
+
+.movie-options{
+    display: flex;
+    align-items: center;
+    
+}
+
+.find-movie{
+    width: 97%;
+}
+
+
+.add-movie button{
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+}
