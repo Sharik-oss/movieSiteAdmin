@@ -1,8 +1,27 @@
 <form class="movie-fields">
+  <div class="main-information">
     <mat-form-field class="movie-title">
       <mat-label>Movie Title</mat-label>
-      <input matInput placeholder="Movie Description">
+      <input matInput placeholder="Movie Title">
     </mat-form-field>
-  
-    <angular-editor [placeholder]="'Enter text here...'"></angular-editor>
-  </form>
+
+    <mat-form-field class="description">
+      <mat-label>Movie Descirption</mat-label>
+      <textarea matInput placeholder="Description"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="secondary-information">
+    <mat-form-field class="movie-title">
+      <mat-label>Movie url</mat-label>
+      <input matInput placeholder="Movie url">
+    </mat-form-field>
+    <mat-form-field class="movie-title">
+      <mat-label>Poster url</mat-label>
+      <input matInput placeholder="Poster url">
+    </mat-form-field>
+    <mat-checkbox class="example-margin" checked="false">Active</mat-checkbox>
+    <button>Save</button>
+  </div>
+
+</form>
