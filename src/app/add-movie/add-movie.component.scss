@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .movie-fields {
     display: flex;
     align-items: center;
@@ -59,4 +61,16 @@ button{
     color: white;
     font-weight: bolder;
     font-size: 15px;
+  &:hover {
+    cursor: pointer;
+  }
 }
+
+
+.movie-type{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+

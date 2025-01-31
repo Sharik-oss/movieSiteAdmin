@@ -13,6 +13,10 @@
     }
     &--edit{
         width: 2%;
+      display: flex;
+      align-items: center;
+      position: absolute;
+      right: 40px;
         img{
             width: 20px;
         }
@@ -23,13 +27,13 @@
 .movie-wrapper{
 
     width: 100%;
-    
+
 }
 
 .movie-options{
     display: flex;
     align-items: center;
-    
+
 }
 
 .find-movie{

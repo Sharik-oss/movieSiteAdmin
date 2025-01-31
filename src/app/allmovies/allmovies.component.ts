@@ -9,17 +9,19 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AllMoviesService } from '../services/all-movies.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import {MovieUpdateService} from '../services/movie-update.service';
+import {routes} from '../app.routes';
 
 
 @Component({
   selector: 'app-allmovies',
   imports: [MatIconModule,
-     MatButtonModule, 
-     MatIconModule, 
-     FormsModule, 
-     MatInputModule, 
-     MatFormFieldModule, 
-     MatCardModule, 
+     MatButtonModule,
+     MatIconModule,
+     FormsModule,
+     MatInputModule,
+     MatFormFieldModule,
+     MatCardModule,
     CommonModule,
     MatCheckboxModule,
   ],
@@ -29,8 +31,10 @@ import { Router } from '@angular/router';
 export class AllmoviesComponent implements OnInit {
   value = '';
   allMovies = inject(AllMoviesService);
-  movies!: any;
+  allMoviesList: any[] = [];
+  movies: any[] = [];
   router = inject(Router);
+  updateMovieService = inject(MovieUpdateService);
 
 
   ngOnInit() {
@@ -39,15 +43,37 @@ export class AllmoviesComponent implements OnInit {
 
 
   getMovies() {
-    this.allMovies.getAllMovies().subscribe((movie: any) => {
-      this.movies = movie;
-      console.log(this.movies);
-
+    this.allMovies.getAllMovies().subscribe((movies: any) => {
+      this.allMoviesList = movies;
+      this.movies = movies;
     })
   }
 
 
-  navigateToAddMovie(link: String){
+  navigateMovieProperties(link: String) {
     this.router.navigate([link])
+  }
+
+  navigateToUpdate(link: string, id: number) {
+    this.router.navigate([link], { queryParams: { id } })
+  }
+
+  deleteMovie(id: number){
+    this.allMovies.deleteMovie(id).subscribe()
+    this.getMovies();
+  }
+  changeStatus(){
+
+  }
+
+
+  onInputChange(event: Event) {
+    const value = (event.target as HTMLInputElement).value.toLowerCase();
+
+    this.allMovies.getAllMovies().subscribe((movies: any) => {
+      this.movies = movies.filter((movie: any) =>
+        movie.name.toLowerCase().includes(value)
+      );
+    });
   }
 }

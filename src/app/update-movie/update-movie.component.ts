@@ -1,33 +1,33 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
-import { NgxEditorModule, Editor } from 'ngx-editor';
-import { AddmovieService } from '../services/addmovie.service';
-import { Router } from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatOption} from '@angular/material/core';
+import {MatSelect} from '@angular/material/select';
+import {Editor} from 'ngx-editor';
+import {AddmovieService} from '../services/addmovie.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MovieUpdateService} from '../services/movie-update.service';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {routes} from '../app.routes';
 
 @Component({
-  selector: 'app-add-movie',
-  standalone: true,
+  selector: 'app-update-movie',
   imports: [
-    MatFormFieldModule,
     FormsModule,
-    MatInputModule,
-    NgxEditorModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatOptionModule
+    MatCheckbox,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    MatOption,
+    MatSelect,
+    ReactiveFormsModule
   ],
-  templateUrl: './add-movie.component.html',
-  styleUrl: './add-movie.component.scss'
+  templateUrl: './update-movie.component.html',
+  styleUrl: './update-movie.component.scss'
 })
-export class AddMovieComponent implements OnInit, OnDestroy {
+export class UpdateMovieComponent {
   genreList: string[] = [
     "ანიმაცია", "ბიოგრაფია", "დეტექტივი", "დოკუმენტური", "დრამა", "ვესტერნი",
     "კრიმინალური", "კომედია", "ისტორიული", "მელოდრამა", "მისტიური", "მიუზიკლი",
@@ -35,13 +35,15 @@ export class AddMovieComponent implements OnInit, OnDestroy {
     "სათავგადასავლო", "საომარი", "საოჯახო", "საშინელება", "სპორტული",
     "ტრილერი", "საბავშვო", "ფანტასტიკა"
   ];
-
+  movieId: string | null = null;
   resolutions: string[] = ['Full HD', '4K HDR'];
   movieTypes: string[] = ['Top', 'New'];
 
+
   editor!: Editor;
-  private addMovieService = inject(AddmovieService);
+  private updateService = inject(MovieUpdateService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   // Form Controls
   name = new FormControl('');
@@ -68,21 +70,32 @@ export class AddMovieComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
+    console.log()
     this.editor = new Editor();
+    this.route.paramMap.subscribe(params => {
+      const routeId = params.get('id'); // Get ID from route `/updateMovie/14`
+      const queryId = this.route.snapshot.queryParamMap.get('id'); // Get ID from `?id=14`
 
+      // Use either ID (route ID has priority)
+      this.movieId = routeId || queryId || '';
+      console.log('Movie ID:', this.movieId);
+
+      // Fetch movie details and populate the form
+      if (this.movieId) {
+        this.updateService.getMovieById(this.movieId).subscribe(movie => {
+          this.movieProperties.patchValue(movie); // Populate form
+        });
+      }
+    });
     // Listen for genre selection changes
     this.genre.valueChanges.subscribe(selectedGenres => {
       console.log('Selected Genres:', selectedGenres);
     });
   }
 
-  ngOnDestroy(): void {
-    this.editor.destroy();
-  }
-
-  addMovie() {
+  updateMovie() {
     if (this.movieProperties.valid) {
-      this.addMovieService.addMovie(this.movieProperties.value).subscribe({
+      this.updateService.updateMovie(this.movieProperties.value, this.movieId).subscribe({
         next: () => {
           console.log('Movie added successfully!');
           this.router.navigate(['/']);
