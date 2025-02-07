@@ -69,7 +69,12 @@ export class AddMovieComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.editor = new Editor();
-
+    this.resolution.valueChanges.subscribe(value => {
+      console.log(value, "Resolution");
+    })
+    this.type.valueChanges.subscribe(value => {
+      console.log(value, "Movie Type");
+    })
     // Listen for genre selection changes
     this.genre.valueChanges.subscribe(selectedGenres => {
       console.log('Selected Genres:', selectedGenres);
