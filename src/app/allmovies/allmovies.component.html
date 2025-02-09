@@ -21,7 +21,6 @@
   <div class="movies" *ngFor="let movie of movies">
 
     <div class="card">
-      <mat-checkbox class="example-margin" [checked]="movie.active" (click)="changeStatus()"></mat-checkbox>
       <div class="card--id">{{movie.id}}</div>
       <div class="card--name">{{movie.name}}</div>
       <div class="card--edit">

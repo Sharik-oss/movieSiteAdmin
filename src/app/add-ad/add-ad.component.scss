@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+.ad-fields {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.ad-information{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+button{
+    border: none;
+    width: 90px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #36b636;
+    color: white;
+    font-weight: bolder;
+    font-size: 15px;
+  &:hover {
+    cursor: pointer;
+  }
+}

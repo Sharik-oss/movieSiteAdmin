@@ -1,0 +1,17 @@
+<div class="ads-wrapper">
+    <div class="add-ads">
+        <button (click)="navigateToAdProps('addAd')">
+            +
+        </button>
+    </div>
+    <div class="movies" *ngFor="let ad of ads">
+        <div class="card">
+            <div class="card--id">{{ad.id}}</div>
+            <div class="card--name">{{ad.name}}</div>
+            <div class="card--edit">
+                <img src="images/delete.png" (click)="deleteAdById(ad.id)">
+                <img src="images/edit.webp">
+            </div>
+        </div>
+    </div>
+</div>
