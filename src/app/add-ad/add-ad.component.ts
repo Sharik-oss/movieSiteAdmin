@@ -35,7 +35,7 @@ const year = today.getFullYear();
 export class AddAdComponent {
 
 
-  leftOrRightArray: string[] = ['Left', 'Right'];
+  leftOrRightArray: string[] = ['Left', 'Right', 'Movie'];
   readonly startEndDate = new FormGroup({
     start: new FormControl(new Date(year, month, 13)),
     end: new FormControl(new Date(year, month, 16)),
@@ -72,7 +72,7 @@ export class AddAdComponent {
           },
           error: (err) => {
             console.log("Error while adding ad: " , err);
-            
+
           }
         })
       }
