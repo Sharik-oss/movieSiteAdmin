@@ -10,7 +10,6 @@ export const routes: Routes = [
   {
     path: '',
     component: WholePageComponent,
-    canActivate: [mainGuard]
   },
   {
     path: 'addMovie',
