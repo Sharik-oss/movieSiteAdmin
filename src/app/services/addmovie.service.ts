@@ -6,7 +6,7 @@ import {catchError} from 'rxjs';
   providedIn: 'root'
 })
 export class AddmovieService {
-  url = 'http://localhost:1043';
+  url = 'https://backend.ultrafilms.pro';
 
 
   constructor(private http: HttpClient) { }

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class AllAdsService {
 
-  url = "http://localhost:1043"
+  url = "https://backend.ultrafilms.pro"
 
   constructor(private http: HttpClient) { }
 
